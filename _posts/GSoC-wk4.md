@@ -1,0 +1,225 @@
+---
+layout: post
+title: Forth Week of GSoC
+gh-repo: Rdatatable/data.table
+gh-badge: [star]
+tags: [R, GSoC, Google, data.table]
+comments: true
+author: Mukul Kumar
+---
+
+## Improving Docs and Exploring Performance in data.table
+**PR:** #7075 - [Add central documentation page for data.table options](https://github.com/Rdatatable/data.table/pull/7075)
+**Fixes:** #6720 - [List Of data.table Options](https://github.com/Rdatatable/data.table/issues/6720)
+
+This week, I worked on solving an important usability problem in the data.table ecosystem: the lack of a single, centralized help page listing all user-configurable options. Although data.table provides numerous powerful `datatable.*` options to control printing, performance, memory, and debugging behavior, these were previously undocumented in one place — making them difficult for users to discover, understand, and use confidently.
+
+## Problem Overview
+Many users may be familiar with options like:
+
+- `datatable.verbose` – to print verbose progress
+- `datatable.auto.index` – to enable/disable automatic indexing
+- `datatable.alloccol` – to control memory reallocation behavior
+
+...but they were scattered across various help files (`?data.table`, `?fread`, `?set`, etc.), GitHub issues, or hidden in the source code. As a result, it was difficult for users to:
+
+- Know which options exist
+- Understand what they control
+- See their default and current values
+- Learn about interdependencies between them
+
+## What I Did – A Two-Part Solution
+To address this comprehensively, I structured the PR into two stages:
+
+### 1. A Centralized Help Page – `?data.table-options`
+I created a new `.Rd` file:
+`man/data.table-options.Rd`
+
+This introduces a new help topic:
+
+```r
+help("data.table-options")
+```
+
+This page includes:
+
+- A complete list of all `datatable.*` options
+- Grouped thematically (e.g. printing, verbose/debug, performance tuning)
+- Each entry includes:
+  - Option name
+  - Default value
+  - Actual current value (when relevant)
+  - Clear purpose/description
+
+This now serves as an official reference point for users, contributors, and maintainers alike — a place to learn and understand how to configure data.table behavior without needing to dig into source code.
+
+### 2. A CI Linter to Enforce Sync Between Docs and Code
+Documentation can quickly become stale if not enforced. So I added a custom linter to automatically check for consistency between:
+
+- The options used in code (`getOption("datatable.*")`)
+- And the ones listed in the help file (`data.table-options.Rd`)
+
+This linter was implemented as a new script:
+`.ci/linters/rd/options_doc_check.R`
+
+It is now run as part of the CI (Continuous Integration) test pipeline.
+
+The linter:
+
+- Extracts all documented `datatable.*` options
+- Statistically scans source files for any use of `getOption("datatable.*")`
+- Compares the two lists
+- Fails the CI if any option used in code is missing from the help page
+
+This ensures that all options are properly documented going forward, without relying on manual effort.
+
+### Bonus – A Future-Ready Linting Framework
+While implementing this check, I created a dedicated directory:
+`.ci/linters/rd/`
+
+The idea is not just to lint option documentation, but to establish a framework where other `.Rd`-related checks can be added over time.
+
+This opens up possibilities like:
+
+- Checking for outdated or missing examples
+- Validating title/description formatting
+- Ensuring consistent usage of `@seealso`, `@details`, and other Rd tags
+
+So this isn’t just a one-time fix — it’s an investment in automated documentation quality for the long-term need of project.
+
+### How Feedback Helped Improve the Final Design
+Throughout the review process, I received detailed feedback from mentors and contributors including:
+
+- Clarifying ambiguous option descriptions
+- Improving grouping (e.g. printing-related options together)
+- Renaming some options for consistency in doc
+- Improving detection of edge cases in the linter logic
+
+This collaboration helped me better understand the project’s coding standards, documentation philosophy, and how thoughtful review can make even a small feature significantly better.
+
+### Final Result
+- The help page is now merged and live:  
+  Try `?data.table-options` in R!
+- The linter runs with every PR via GitHub Actions
+- The documentation is now discoverable, comprehensive, and self-maintaining
+- Future contributors modifying or adding new options will be reminded to document them, or their PR will fail CI
+
+---
+
+## Improving `fread()` Reliability with Safer Error Handling
+
+**PR:** #7097 – [Improve error messages for system command and decompression failures in `fread()`](https://github.com/Rdatatable/data.table/pull/7097) 
+**Fixes:** #5415 - [fread should raise an error instead of a warning when reading a gzipped file that does not fit in temporary storage](https://github.com/Rdatatable/data.table/issues/5415)
+
+### Problem Overview
+
+`fread()` is one of data.table’s most widely used functions, known for its speed and flexibility in reading large datasets — including support for reading compressed files and using external shell commands via the `cmd=` argument.
+
+However, there being two silent failure modes that could result in corrupted data or incomplete reads, without clearly alerting users:
+
+#### Failure Mode 1: Decompression Failures
+
+If `fread()` attempts to read a gzipped file using `R.utils::decompressFile()`, and the decompression fails silently (e.g., due to insufficient disk space), the function may still proceed and try to read a truncated file, leading to:
+
+- Partial data reads
+- Incomplete tables
+- Hard-to-debug downstream issues
+
+#### Failure Mode 2: Broken Shell Commands (`cmd=`)
+
+When users provide a custom system command (e.g., `cmd = "gunzip -c myfile.csv.gz"`), and that command fails (e.g., file not found, or command not installed), `fread()` used to ignore the non-zero exit status and still try to read from the result — often yielding an empty or corrupted result.
+
+### What I Did – Making Failures Loud, Not Silent
+
+The aim of this PR was to ensure these critical failure paths are caught early and communicated clearly to users, rather than being silently ignored.
+
+Here’s how I fixed both failure cases:
+
+#### 1. Safer Decompression with `tryCatch()`
+
+Previously, `R.utils::decompressFile()` was called without any error handling. I wrapped this in `tryCatch()` and introduced a detailed error message if decompression fails. The message now:
+
+- Explains that decompression failed
+- Suggests checking for disk space
+- Mentions the temporary directory (`tmpdir`) where decompression is attempted
+
+This prevents `fread()` from moving forward with a broken intermediate file and makes the likely cause obvious.
+
+#### 2. Validating System Command Exit Codes
+
+Shell commands passed via the `cmd=` argument are now monitored for their exit status. If a command returns a non-zero exit code:
+
+- `fread()` now throws an error
+- The error includes the exit code and a message advising users to check the command syntax or availability
+
+This stops `fread()` from silently processing garbage output (e.g., when `cmd` fails to open the file or isn't installed).
+
+#### 3. Preventing File Leaks with Early `on.exit()`
+
+In both code paths, I also moved the `on.exit(unlink(tmpFile))` call before the system/decompression logic. This ensures that temporary files are always cleaned up, even if an error occurs — avoiding storage leaks in the user’s `tmpdir`.
+
+### Design Philosophy and Mentorship Feedback
+
+This PR benefited from a helpful review discussion with mentors, especially on:
+
+- When to raise warnings vs. errors
+- How to design error messages that are both technical and actionable
+- Placement of cleanup logic (`on.exit`) to guarantee robustness
+
+These conversations helped me align with data.table's philosophy of fast but predictable behavior, and improved my understanding of R's file handling mechanisms.
+
+### 🧪 Example: Before vs After
+
+**Corrupted Gzip File Scenario**  
+_Before (silent failure, partial read):_
+```r
+fread("data.csv.gz")
+# Would either:
+# 1. Read partial/corrupted data without warning
+# 2. Fail with a cryptic low-level decompression error
+# 3. Return unexpected results silently
+```
+
+_After (clear, helpful error):_
+```r
+fread("data.csv.gz")
+# Error: R.utils::decompressFile failed to decompress file 'data.csv.gz'. 
+# The file may be corrupted or not a valid gzip file.
+```
+
+**Invalid System Command Scenario**  
+_Before (unclear error):_
+```r
+fread(cmd = "invalid-command input.csv")
+# Error: could not find function "invalid-command"
+# or
+# Error: system command failed
+# (unclear what went wrong or how to fix it)	
+```
+
+_After (clear, helpful error):_
+```r
+fread(cmd = "invalid-command input.csv")
+# Error: External command failed with exit code 127: 'invalid-command input.csv'
+# Command not found or failed to execute. Check that the command exists and is accessible.
+```
+
+### Outcome and Impact
+
+This change makes `fread()` much more robust in production environments, where:
+
+- Users may not be present to read warnings
+- Disk space may be low (e.g., in CI or cloud)
+- External commands might be brittle or platform-specific
+
+With clear, fail-fast behavior, users are now alerted immediately when something goes wrong — reducing data corruption risk and debugging time.
+
+---
+
+## Closing Thoughts
+
+Through both of these tasks, I’ve gained deeper insight into the internals of data.table, worked closely with mentors during review cycles, and sharpened my ability to think from both a developer and user perspective.
+
+Looking forward to continuing with even more technically involved issues in the coming weeks. Thanks for reading and supporting the journey!
+
+— Mukul
