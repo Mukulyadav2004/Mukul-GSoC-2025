@@ -18,7 +18,7 @@ author: Mukul Kumar
 ###############################################
 # --- List of links in the navigation bar --- #
 ###############################################
-
+future: true
 navbar-links:
   About Me: "aboutme"
   Resources:
