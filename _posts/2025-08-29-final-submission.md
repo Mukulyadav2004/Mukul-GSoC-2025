@@ -1,3 +1,26 @@
+---
+layout: post
+title: GSoC 25' Summary
+subtitle: Thoughts and experience
+gh-repo: Rdatatable/data.table
+gh-badge: [star, fork, follow]
+tags: [pr, contribution, gsoc2025]
+comments: true
+---
+
+## Basic Info
+- **Name**: Mukul Kumar
+- **Email**: mukulrao6480@gmail.com
+- **Github Username**: Mukulyadav2004
+- **Mentors**: Toby Dylan Hocking, Anirban chetia, Joshua Wu
+- **Project Title**: Enhancing data.table: Enhancing Functionality, and Ensuring
+Quality
+- **Project Link**: [data.table](https://github.com/Rdatatable/data.table)
+
+### Work Summary
+
+My contributions during this period centered on resolving key bugs, documentation and extending the functionality of the data.table package. Below is a summary of the work done:
+
 | Issues | Pull Requests |
 | :------ | :--- |
 | [move from warning to breaking change in melt/dcast #6629](https://github.com/Rdatatable/data.table/issues/6629) | [#7266](https://github.com/Rdatatable/data.table/pull/7266) |
@@ -20,3 +43,20 @@
 | [key(as.data.table(x, key = <key>)) is inconsistent, varies based on x #6859](https://github.com/Rdatatable/data.table/issues/6859) | [#6865](https://github.com/Rdatatable/data.table/pull/6865) |
 | [Clarify behavior of first() and last() #7056](https://github.com/Rdatatable/data.table/pull/7056),| [#7061](https://github.com/Rdatatable/data.table/pull/7061) |
 | [print.data.table warns when options(datatable.show.indices=TRUE) and an index exists #6806](https://github.com/Rdatatable/data.table/issues/6806) | [#6816](https://github.com/Rdatatable/data.table/pull/6816) |
+
+
+## **Overview**
+
+Taking part in Google Summer of Code this year has been a truly increadible experience. I’m grateful to my mentor for trusting me with this project and for providing steady guidance throughout the journey. The program strengthened my technical skills and at the same time gave me the confidence to tackle complex problems and explore new areas of open-source development.
+
+Balancing academics with GSoC was challenging at times, yet it turned into one of the most rewarding aspects of the experience. Dedicating evenings and weekends to the project taught me discipline, focus, and effective time management. The encouragement and flexibility I received from my mentor made it easier to stay consistent and motivated throughout the summer.
+
+For me, GSoC has been much more than writing code—it has been a journey of growth, learning, and collaboration. I’ll continue to contribute in improving data.table project and to carry these lessons forward into future work.
+
+## **Acknowledgments**
+
+I would like to sincerely thank my mentors, Toby Dylan Hocking, Anirban Chetia and Joshua Wu for their guidance and support. Their patience, quick feedback, and insightful suggestions pushed me to think critically and improve the quality of my work. Many of the principles I learned from them have changed how I approach coding and problem-solving.
+
+I’m also thankful to the data.table community for their generosity in sharing knowledge and offering constructive feedback. Their guidance helped me refine my contributions and gain a deeper understanding of the project.
+
+Lastly, I want to appreciate my fellow GSoC contributor, working alongside such talented peers made this journey even more meaningful and enjoyable.
