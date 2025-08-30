@@ -7,7 +7,7 @@
 | [move from warning to breaking change in melt/dcast #6629](https://github.com/Rdatatable/data.table/issues/6629)| [#7260](https://github.com/Rdatatable/data.table/pull/7260) |
 | [fcoalesce will not replace NaN with NA_real_ #4567](https://github.com/Rdatatable/data.table/issues/4567) | [#7189](https://github.com/Rdatatable/data.table/pull/7189) |
 | [mistake in help text of ?data.table for with? #4955](https://github.com/Rdatatable/data.table/issues/4955) | [#7155](https://github.com/Rdatatable/data.table/pull/7155) |
-| [move from warning to breaking change in melt/dcast #6629](https://github.com/Rdatatable/data.table/issues/6629)| [#7263](https://github.com/Rdatatable/data.table/pull/7263) |
+| [Error on non scalar aggregates regardless of fill #7260](https://github.com/Rdatatable/data.table/pull/7260)| [#7263](https://github.com/Rdatatable/data.table/pull/7263) |
 | [Use classed conditions as often as possible #5913](https://github.com/Rdatatable/data.table/issues/5913) | [#7139](https://github.com/Rdatatable/data.table/pull/7139) |
 | [data.table(keep.rownames = TRUE) should preserve names from vectors #1916](https://github.com/Rdatatable/data.table/issues/1916) | [#7136](https://github.com/Rdatatable/data.table/pull/7136) |
 | [fread should raise an error instead of a warning when reading a gzipped file that does not fit in temporary storage #5415](https://github.com/Rdatatable/data.table/issues/5415) | [#7097](https://github.com/Rdatatable/data.table/pull/7097) |
