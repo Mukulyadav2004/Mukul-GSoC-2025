@@ -12,7 +12,7 @@
 | [data.table(keep.rownames = TRUE) should preserve names from vectors #1916](https://github.com/Rdatatable/data.table/issues/1916) | [#7136](https://github.com/Rdatatable/data.table/pull/7136) |
 | [fread should raise an error instead of a warning when reading a gzipped file that does not fit in temporary storage #5415](https://github.com/Rdatatable/data.table/issues/5415) | [#7097](https://github.com/Rdatatable/data.table/pull/7097) |
 | [List Of data.table Options #6720](https://github.com/Rdatatable/data.table/issues/6720) | [#7075](https://github.com/Rdatatable/data.table/pull/7075) |
-| [#7056](https://github.com/Rdatatable/data.table/pull/7056), [#7061](https://github.com/Rdatatable/data.table/pull/7061) |
+| [Clarify behavior of first() and last() #7056](https://github.com/Rdatatable/data.table/pull/7056),| [#7061](https://github.com/Rdatatable/data.table/pull/7061) |
 | [first(x) not always the same as x[1] #2002](https://github.com/Rdatatable/data.table/issues/2002) | [#7056](https://github.com/Rdatatable/data.table/pull/7056) |
 | [Add functionality to print column classes at bottom #6902](https://github.com/Rdatatable/data.table/issues/6902) | [#6905](https://github.com/Rdatatable/data.table/pull/6905) |
 | [Error message for unspecified join gives incorrect advice on how to do a natural join #5455](https://github.com/Rdatatable/data.table/issues/5455) | [#6876](https://github.com/Rdatatable/data.table/pull/6876) |
