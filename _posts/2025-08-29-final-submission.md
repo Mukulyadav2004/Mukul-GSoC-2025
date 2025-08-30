@@ -18,5 +18,5 @@
 | [Error message for unspecified join gives incorrect advice on how to do a natural join #5455](https://github.com/Rdatatable/data.table/issues/5455) | [#6876](https://github.com/Rdatatable/data.table/pull/6876) |
 | [Typo in vignette on reshaping #6855](https://github.com/Rdatatable/data.table/issues/6855) | [#6870](https://github.com/Rdatatable/data.table/pull/6870) |
 | [key(as.data.table(x, key = <key>)) is inconsistent, varies based on x #6859](https://github.com/Rdatatable/data.table/issues/6859) | [#6865](https://github.com/Rdatatable/data.table/pull/6865) |
-| [first(named_vector) removes names #2487](https://github.com/Rdatatable/data.table/issues/2487) | [#7056](\https://github.com/Rdatatable/data.table/pull/7056) |
+| [first(named_vector) removes names #2487](https://github.com/Rdatatable/data.table/issues/2487) | [#7056](https://github.com/Rdatatable/data.table/pull/7056) |
 | [print.data.table warns when options(datatable.show.indices=TRUE) and an index exists #6806](https://github.com/Rdatatable/data.table/issues/6806) | [#6816](https://github.com/Rdatatable/data.table/pull/6816) |
