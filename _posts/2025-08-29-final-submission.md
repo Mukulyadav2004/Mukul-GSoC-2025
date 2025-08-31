@@ -40,8 +40,8 @@ My contributions during this period centered on resolving key bugs, documentatio
 | [Add functionality to print column classes at bottom #6902](https://github.com/Rdatatable/data.table/issues/6902) | [#6905](https://github.com/Rdatatable/data.table/pull/6905) |
 | [Error message for unspecified join gives incorrect advice on how to do a natural join #5455](https://github.com/Rdatatable/data.table/issues/5455) | [#6876](https://github.com/Rdatatable/data.table/pull/6876) |
 | [Typo in vignette on reshaping #6855](https://github.com/Rdatatable/data.table/issues/6855) | [#6870](https://github.com/Rdatatable/data.table/pull/6870) |
-| [key(as.data.table(x, key = <key>)) is inconsistent, varies based on x #6859](https://github.com/Rdatatable/data.table/issues/6859) | [#6865](https://github.com/Rdatatable/data.table/pull/6865) |
 | [Clarify behavior of first() and last() #7056](https://github.com/Rdatatable/data.table/pull/7056),| [#7061](https://github.com/Rdatatable/data.table/pull/7061) |
+| [key(as.data.table(x, key = <key>)) is inconsistent, varies based on x #6859](https://github.com/Rdatatable/data.table/issues/6859) | [#6865](https://github.com/Rdatatable/data.table/pull/6865) |
 | [print.data.table warns when options(datatable.show.indices=TRUE) and an index exists #6806](https://github.com/Rdatatable/data.table/issues/6806) | [#6816](https://github.com/Rdatatable/data.table/pull/6816) |
 
 
